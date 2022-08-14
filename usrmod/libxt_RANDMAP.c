@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include <xtables.h>
+#include <config/netfilter/xtables.h>
 
 #include <randmap/xt_randmap.h>
 

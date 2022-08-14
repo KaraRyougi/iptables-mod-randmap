@@ -86,7 +86,7 @@ randmap_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 
 	for (i = 0; i < RANDMAP_MGT_MAX; i++) {
 		if ((ctx.mangle_flags[i] & RANDMAP_MANGLE_IP) != 0) {
-			ctx.mangled[i].addr.ip = get_random_u32();
+			ctx.mangled[i].addr.ip = get_random_int();
 			ctx.mangled[i].addr.ip &= ~info->ranges[i].mask.ip;
 			ctx.mangled[i].addr.ip |= info->ranges[i].net.ip & info->ranges[i].mask.ip;
 		}

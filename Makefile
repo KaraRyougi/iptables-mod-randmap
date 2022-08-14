@@ -1,8 +1,12 @@
 KERNELRELEAS	?= $(shell uname -r)
-KERNEL_DIR		?= /lib/modules/$(KERNELRELEAS)/build
+KERNEL_DIR		?= /headers
 PWD				:= $(shell pwd)
 ccflags-y		+= -I$(src)/include
 obj-m			+= xt_RANDMAP.o
+
+CROSS			= mips64-octeon-linux-
+CC				= mips64-octeon-linux-gcc
+ARCH			= mips
 
 MODULE_OPTIONS = 
 
@@ -34,7 +38,7 @@ all: kmod usrmod
 kmod: xt_RANDMAP.ko
 xt_RANDMAP: xt_RANDMAP.ko
 xt_RANDMAP.ko: xt_RANDMAP.c nf_nat_proto.inc
-	$(MAKE) -C $(KERNEL_DIR) M=$(PWD) modules
+	$(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS) -C $(KERNEL_DIR) M=$(PWD) modules
 
 usrmod:
 	$(MAKE) -C $(PWD)/usrmod
