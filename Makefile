@@ -1,4 +1,4 @@
-KERNELRELEAS	?= $(shell uname -r)
+KERNELRELEAS	?= 4.9.79-UBNT
 KERNEL_DIR		?= /headers
 PWD				:= $(shell pwd)
 ccflags-y		+= -I$(src)/include
