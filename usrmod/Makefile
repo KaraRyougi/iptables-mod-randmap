@@ -1,11 +1,9 @@
 CFLAGS			?= -O2 -Wall 
 CFLAGS			+= -I../include
-CFLAGS			+= -I../iptables/include
-XTABLES_SO_DIR	?= $(shell pkg-config xtables --variable xtlibdir)
-
-CC				= mips-linux-musl-gcc
-ARCH			= mips
-LDLIBS			= -static -shared
+XTABLES_SO_DIR		?= $(shell pkg-config xtables --variable xtlibdir)
+CC			= mips-linux-gnu-gcc
+LD                      = mips-linux-gnu-ld
+MUSL_DIR		= /root/musl-install
 
 .PHONY: all install uninstall clean
 
@@ -21,7 +19,7 @@ clean:
 	rm -f *.o *.so
 
 libxt_RANDMAP.so: libxt_RANDMAP.o
-	$(CC) $(LDLIBS) -fPIC -o $@ $^;
+	$(LD) -shared -fPIC -nostdlib -o $@ $^ $(MUSL_DIR)/lib/libc.a /usr/lib/gcc-cross/mips-linux-gnu/10/libgcc.a;
 
 libxt_RANDMAP.o: libxt_RANDMAP.c
-	$(CC) ${CFLAGS} ${LDLIBS} -D_INIT=libxt_RANDMAP_init -fPIC -c -o $@ $<;
+	$(CC) ${CFLAGS} -D_INIT=libxt_RANDMAP_init -fPIC -nostdlib -I$(MUSL_DIR)/include -I/root/iptables-include -c -o $@ $<;
