@@ -1,11 +1,11 @@
-KERNELRELEAS	?= 4.9.79-UBNT
+KERNELRELEAS		?= 4.9.79-UBNT
 KERNEL_DIR		?= /headers
-PWD				:= $(shell pwd)
+PWD			:= $(shell pwd)
 ccflags-y		+= -I$(src)/include
 obj-m			+= xt_RANDMAP.o
 
 CROSS			= mips64-octeon-linux-
-CC				= mips64-octeon-linux-gcc
+CC			= mips64-octeon-linux-gcc
 ARCH			= mips
 
 MODULE_OPTIONS = 
